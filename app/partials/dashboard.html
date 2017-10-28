@@ -1,0 +1,210 @@
+<div class="row custom-page-header">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <h3>
+        	<i class="fa fa-home"></i> {{translation.DASHBOARD.TITLE}}
+            <a href="javascript:void(0)" ng-click="refresh()" id="dRefresh" uib-tooltip="{{translation.DASHBOARD.REFRESH_TIP}}">
+            	<i class="fa fa-refresh ring" ng-class="{'fa-spin': processing}"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2">
+    	<h3>
+        	<span class="emergency"> {{translation.DASHBOARD.EMERGENCY_TITLE}} </span>
+            <a href="javascript:void(0);" ng-click="printEmergencyList();" uib-tooltip="{{translation.DASHBOARD.EMERGENCY_TIP}}" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="Emergency Print">
+            	<i class="fa fa-list-alt ring print"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 location-group">
+        <form class="form-horizontal" role="form">
+            <div class="row">
+                <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION }} </label>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <select class="form-control mainSelector" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row custom-heading statistics">
+	<div class="col-lg-7 col-sm-12 col-md-12 col-xs-12">
+        <ul class="nav">
+            <li class="col-lg-4 col-md-4 col-sm-4">
+                <figure class="pull-left">
+                    <i class="fa fa-user header-icon blue"></i>
+                    <figurecaption>
+                        <b class="ng-binding">{{translation.DASHBOARD.SCHEDULED}}</b>
+                        <span count-to="{{schedules.statistics.scheduled}}" value="0" duration="1"></span>
+                    </figurecaption>
+                </figure>
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-4">
+                <figure class="pull-left">
+                    <i class="fa fa-sign-in header-icon green"></i>
+                    <figurecaption>
+                        <b class="ng-binding">{{translation.DASHBOARD.ONSITE}}</b>                        
+                        <span count-to="{{schedules.statistics.onSite}}" value="0" duration="1"></span>
+                    </figurecaption>
+                </figure>
+            </li>
+            <li class="col-lg-4 col-md-4 col-sm-4">
+                <figure class="pull-left">
+                    <i class="fa fa-sign-out header-icon orange"></i>
+                    <figurecaption>
+                        <b class="ng-binding">{{translation.DASHBOARD.DEPARTED}}</b>                        
+                        <span count-to="{{schedules.statistics.departed}}" value="0" duration="1"></span>
+                    </figurecaption>
+                </figure>
+            </li>
+        </ul>
+    </div>
+    <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12">
+        <div class="form-group margin-top">
+            <label for="selectedDate"  class="col-lg-4 col-md-4 control-label text-right">
+                {{translation.DASHBOARD.SELECT_DATE}}
+            </label>
+            <div class="col-lg-8 col-md-8">
+                <p class="input-group">
+                  <input type="text" class="form-control time" id="selectedDate" name="selectedDate" ng-model="selectedDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minDate" show-button-bar="false" readonly is-open="opened" ng-click="openCalendar($event);" ng-change="changeDate()" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="openCalendar($event);"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+	<div class="col-lg-5">
+		
+        <div class="row custom-heading">
+        	<h4 class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<i class="fa fa-user"></i>
+				{{translation.DASHBOARD.SCHEDULED_VISITORS}}
+			</h4>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<input type="text" class="form-control searchCustom" id="filterScheduled" ng-model="filterScheduled" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+            </div>
+        </div>
+		
+		<div class="clearfix table-responsive">
+			<table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+				<thead>
+					<tr>
+						<th class="col-xs-4 h" id="visitor-scheduled">{{translation.DASHBOARD.VISITOR}}<a class="sort" ng-click="sortBy('visitor', 'scheduled')"><i class="fa fa-2x fa-sort"></i></a></th>
+						<th class="col-xs-3 h" id="host-scheduled">{{translation.DASHBOARD.HOST}}<a class="sort" ng-click="sortBy('host', 'scheduled')"><i class="fa fa-2x fa-sort"></i></a></th>
+						<th class="col-xs-2">{{translation.DASHBOARD.DUE_IN}}</th>
+                        <th class="col-xs-3 text-center">{{translation.DASHBOARD.ACTION}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="schedule in schedules.scheduled | filter: filterScheduled">
+						<td>
+                        	<span class="avatar sm" tooltip-html-unsafe="{{schedule.tooltip}}">
+                            	<img src="http://supportcentral.gecdn.com/images/person/temp/{{schedule.sso}}.jpg" ng-show="schedule.showAvatar" />
+                    			<img class="profile" ng-src="vm/resources/visitorphoto?recordId={{schedule.id}}" ng-show="schedule.visitorPic" />
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <h5 class="inline half">
+                            	<strong>{{ schedule.visitor }}</strong> <br /> <small>{{ schedule.visitorPhone }} </small>
+                            </h5>
+                        </td>
+						<td> 
+                        	<h5>{{ schedule.host }} <br /> <small>{{ schedule.hostPhone }}</small></h5>
+                        </td>
+						<td>
+                        	{{ schedule.dueIn }}
+                        </td>
+                        <td class="text-center">
+                        	
+                            <h4 ng-if="schedule.isBanned">
+                            	<small>{{translation.DASHBOARD.NEED_APPROVAL}}</small>
+                            </h4>
+                            
+                        	<div class="btn-group tips" ng-if="!schedule.isBanned">
+                            	
+                            	<a ng-show="checkInButtonVisibility()" href="javascript:void(0);" ng-click="checkin(schedule, $index);" uib-tooltip="{{translation.DASHBOARD.CHECKIN_TIP}}" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="CheckIn">
+									<i class="fa fa-check ring apply"></i>
+                                </a> 
+                                <!--<a href="#/schedule/{{schedule.id}}/d" uib-tooltip="{{translation.DASHBOARD.RESCHEDULE_TIP}}" ng-if="schedule.recordType == 'past'" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="Reschedule">
+                                    <i class="fa fa-retweet ring edit"></i>
+                                </a>-->
+                                <!--ng-if="schedule.recordType != 'past'"-->
+                                <a href="#/schedule/{{schedule.id}}/d" uib-tooltip="{{translation.DASHBOARD.EDIT_TIP}}" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="Edit">
+                                    <i class="fa fa-pencil ring edit"></i>
+                                </a>
+                                
+                            </div>
+                            
+                        </td>
+					</tr>
+					<tr ng-hide="( schedules.scheduled | filter: filterScheduled ).length">
+						<td colspan="4"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+        
+	</div>
+	<div class="col-lg-7">
+		
+        <div class="row custom-heading">
+            <h4 class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <i class="fa fa-check-square-o"></i>
+                {{translation.DASHBOARD.CHECKED_IN_VISITORS}}
+            </h4>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            	<input type="text" class="form-control pull-right searchCustom" id="filterCheckedIn" ng-model="filterCheckedIn" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+			</div>
+        </div>
+        
+		<div class="clearfix table-responsive">
+			<table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+				<thead>
+					<tr>
+						<th class="col-xs-3 h" id="visitorLastName-checkedin">{{translation.DASHBOARD.VISITOR}}<a class="sort" ng-click="sortBy('visitorLastName', 'checkedin')"><i class="fa fa-2x fa-sort"></i></a></th>
+						<th class="col-xs-3 h" id="host-checkedin">{{translation.DASHBOARD.HOST}}<a class="sort" ng-click="sortBy('host', 'checkedin')"><i class="fa fa-2x fa-sort"></i></a></th>
+						<th class="col-xs-2 h" id="badge-checkedin">{{translation.DASHBOARD.BADGE}}<a class="sort" ng-click="sortBy('badge', 'checkedin')"><i class="fa fa-2x fa-sort"></i></a></th>
+						<th class="col-xs-2">{{translation.DASHBOARD.TIME_IN}}</th>
+                        <th class="col-xs-2 text-center">{{translation.DASHBOARD.ACTION}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="schedule in schedules.checkedin | filter: filterCheckedIn">
+						<td class="vert-align">
+                            <span class="avatar sm" tooltip-html-unsafe="{{schedule.tooltip}}">
+                            	<img src="http://supportcentral.gecdn.com/images/person/temp/{{schedule.sso}}.jpg" ng-show="schedule.showAvatar" />
+                    			<img class="profile" ng-src="vm/resources/visitorphoto?recordId={{schedule.id}}" ng-show="schedule.visitorPic" />
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <h5 class="inline half"><strong>{{ schedule.visitorLastName }}, {{ schedule.visitorFirstName }}</strong><br /> <small>{{ schedule.visitorPhone }}</small></h5>
+                        </td>
+						<td>
+                        	<h5>{{ schedule.host }} <br /> <small>{{ schedule.hostPhone }}</small></h5>
+                        </td>
+						<td> {{ schedule.badge }} </td>
+						<td>
+                        	<div ng-bind-html="schedule.timeIn"></div>
+                        </td>
+                        <td class="text-center">
+                        	<div class="btn-group tips">
+                                <a href="javascript:void(0);" ng-click="checkout(schedule, $index);" uib-tooltip="{{translation.DASHBOARD.CHECKOUT_TIP}}" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="Checkout">
+                                    <i class="fa fa-share ring checkout"></i>
+                                </a>
+                                <a href="javascript:void(0);" ng-click="print(schedule);" uib-tooltip="{{translation.DASHBOARD.PRINT_TIP}}" ng-show="hasPrint" analytics-on analytics-event="Click" analytics-category="Reception" analytics-label="Print">
+                                    <i class="fa fa-print ring print"></i>
+                                </a>
+                            </div>
+                        </td>
+					</tr>
+					<tr ng-hide="( schedules.checkedin | filter: filterCheckedIn ).length">
+						<td colspan="5"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+        
+	</div>
+</div>

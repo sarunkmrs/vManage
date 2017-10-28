@@ -1,0 +1,25 @@
+{
+	"data":{
+		"user": {
+			"type": "ADMIN",
+			"name": "Jane Doe",
+			"sso": "999999999"
+		},
+		"locations" : [
+			{"id": 1, "name": "Location A", "isHome": false},
+			{"id": 2, "name": "Location B", "isHome": true},
+			{"id": 3, "name": "Location C", "isHome": false}
+		],
+		"languages" : [
+			{"id": 1, "code": "en-GB", "name": "English", "isPreferred": true},
+			{"id": 2, "code": "fr-FR", "name": "French", "isPreferred": false},
+			{"id": 3, "code": "zh-CN", "name": "Chinese", "isPreferred": false},
+			{"id": 4, "code": "es-ES", "name": "Spanish", "isPreferred": false}
+		]
+	},
+	"exception": {
+		"status": true,
+        "code": 6002,
+        "message": null
+	}
+}

@@ -1,0 +1,84 @@
+<div class="row custom-page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h3>
+      <i class="fa fa-ticket"></i> {{translation.BANNED_SCHEDULES.TITLE}}
+    </h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 location-group">
+    <form class="form-horizontal" role="form">
+      <div class="row">
+        <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION}} </label>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <select class="form-control mainSelector" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);"></select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row custom-heading">
+  <div class="col-md-3 col-sm-6 col-xs-10">
+    <input type="text" class="form-control searchCustom" id="filterSchedules" ng-model="filterSchedules" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+  </div>
+  <div class="col-md-9 col-sm-6 col-xs-2">
+    <button type="button" class="btn btn-link pull-right help" ng-click="help();">
+      <i class="fa fa-question-circle"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <!--infinite-scroll="loadMore()" infinite-scroll-disabled="busy" infinite-scroll-distance="1"-->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="col-xs-3">{{translation.BANNED_SCHEDULES.VISITOR}}</th>
+            <th class="col-xs-3">{{translation.BANNED_SCHEDULES.HOST}}</th>
+            <th class="col-xs-2">{{translation.BANNED_SCHEDULES.VISIT_RANGE}}</th>
+            <th class="col-xs-2">{{translation.BANNED_SCHEDULES.BANN_RANGE}}</th>
+            <th class="col-xs-3">{{translation.BANNED_SCHEDULES.REQUESTER}}</th>
+            <th class="col-xs-2">{{translation.BANNED_SCHEDULES.REASON}}</th>
+            <th class="col-xs-2 text-center">{{translation.BANNED_SCHEDULES.ACTION}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="schedule in schedules| filter: filterSchedules">
+            <td>
+              	<span class="avatar sm rel" uib-tooltip-html-unsafe="{{schedule.tooltip}}">
+                	<img src="http://supportcentral.gecdn.com/images/person/temp/{{schedule.visitorSSO}}.jpg" ng-show="schedule.showAvatar" />
+                    <img class="profile" ng-src="vm/resources/visitorphoto?recordId={{schedule.id}}" ng-show="schedule.visitorPic" />
+                	<i class="fa fa-user"></i>
+              	</span>
+              	<h5 class="inline"><strong>{{ schedule.visitorName}}</strong><br /><small>{{ schedule.visitorSSO}}</small></h5>
+            </td>
+            <td>
+              	<h5 class="inline"><strong>{{ schedule.hostName}}</strong><br /><small>{{ schedule.hostSSO}}</small></h5>
+            </td>
+            <td>{{ schedule.visitDateRange}}</td>
+            <td>{{ schedule.bannDateRange}}</td>
+            <td>
+              	
+              	<h5 class="inline"><strong>{{ schedule.requesterName}}</strong><br /><small>{{ schedule.requesterSSO}}</small></h5>
+            </td>
+            <td>{{ schedule.reason}}</td>
+            <td class="text-center">
+              <div class="btn-group tips">
+                <a href="javascript:void(0);" ng-click="approve(schedule.id, $index);" uib-tooltip="{{translation.BANNED_SCHEDULES.APPROVE_TIP}}">
+                  <i class="fa fa-check ring"></i>
+                </a>
+                <a href="javascript:void(0);" ng-click="reject(schedule.id, $index);" uib-tooltip="{{translation.BANNED_SCHEDULES.REJECT_TIP}}">
+                  <i class="fa fa-times ring"></i>
+                </a> 
+              </div>
+            </td>                    
+          </tr>
+          <tr ng-hide="( schedules | filter: filterSchedules).length">
+            <td colspan="7"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="GE vManage" />
+<meta name="keywords" content="GE, vManage" />
+<meta name="author" content="GE" />
+<title>vManage</title>
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" href="images/touch-icon-iphone.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="images/touch-icon-iphone-retina.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="images/touch-icon-ipad-retina.png" />
+<link rel="shortcut icon" href="images/favicon.ico" />
+
+<!-- Core CSS - Include with every page -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" />
+<link href="css/dialogs.min.css" rel="stylesheet" />
+<link href="css/angular-growl.min.css" rel="stylesheet" />
+
+<!-- Custom CSS - Include with every page -->
+<link href="css/base.css" rel="stylesheet" />
+<link href="css/custom.css" rel="stylesheet" />
+<link href="css/animations.css" rel="stylesheet" media="screen" />
+<link href="css/print.css" rel="stylesheet" media="all" />
+
+<!-- Respond.js proxy on external server -->
+<link href="http://netdna.bootstrapcdn.com/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+<!-- Respond.js redirect location on local server -->
+<link href="images/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+
+<!--
+	HTML5 Shim and Respond.js and Respond.js proxy script on local server
+	IE8 support of HTML5 elements and media queries
+-->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<script src="js/respond.proxy.js"></script>
+<![endif]-->
+
+</head>
+
+<body class="fade-in" data-ng-app="vmApp" data-ng-controller="AppController" ng-cloak>
+
+<div id="wrapper">
+	
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    	
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            	<span class="sr-only">Toggle navigation</span> 
+                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span> 
+            </button>
+            <a class="navbar-brand" href="#/dashboard">
+            	<img class="brand-logo" src="images/logo.png" alt="">
+            </a>
+        </div>
+        <!-- /.navbar-header -->
+        
+        <ul class="nav navbar-top-links navbar-right">
+            <!--<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-2x fa-fw"></i><span class="notification-icon label label-danger">3</span> </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li> <a href="#">
+                        <div> <i class="fa fa-comment fa-fw"></i> New Comment <span class="pull-right text-muted small">4 minutes ago</span> </div>
+                        </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="#">
+                        <div> <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span> </div>
+                        </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="#">
+                        <div> <i class="fa fa-envelope fa-fw"></i> Message Sent <span class="pull-right text-muted small">4 minutes ago</span> </div>
+                        </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="#">
+                        <div> <i class="fa fa-tasks fa-fw"></i> New Task <span class="pull-right text-muted small">4 minutes ago</span> </div>
+                        </a> </li>
+                    <li class="divider"></li>
+                    <li> <a href="#">
+                        <div> <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span> </div>
+                        </a> </li>
+                    <li class="divider"></li>
+                    <li> <a class="text-center" href="#"> <span class="btn btn-primary btn-block"> <small>View All Notifications</small> </span> </a> </li>
+                </ul>
+            </li>-->
+            <!-- /.dropdown -->
+            <li class="dropdown">
+            	<a class="dropdown-toggle text-center" data-toggle="dropdown" href="#">
+                	<i class="fa fa-globe  fa-2x fa-fw"></i> {{langCode}}
+                </a>
+                <ul class="dropdown-menu dropdown-language">
+                    <li data-ng-repeat="language in languages">
+                		<a href="javascript:void(0);" data-ng-click="changeLanguage(language.code);">
+                        	<i class="fa fa-flag-o fa-fw"></i> 
+                        	{{language.name}}
+                        </a>
+                	</li>
+                </ul>
+            </li>
+            <li class="dropdown">
+            	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                	<i class="fa fa-user  fa-2x fa-fw"></i>
+                    <span>{{translation.GLOBAL.WELCOME}} {{user.name}}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <!--<li>
+                    	<a href="javascript:void(0);" class="user">
+                        	<i class="fa fa-user fa-fw"></i> 
+                            {{translation.GLOBAL.WELCOME}} {{user.name}}
+                        </a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a> </li>
+                    <li class="divider"></li>-->
+                    <li>
+                    	<a href="javascript:void(0);" data-ng-click="logout()">
+                        	<i class="fa fa-sign-out fa-fw"></i>
+                            {{translation.GLOBAL.LOGOUT}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.navbar-top-links --> 
+        
+    </nav>
+    <!-- /.navbar-static-top -->
+    
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu" data-ng-show="locations.length && access">
+                <li data-ng-show="showMenu('dashboard')">
+                	<a href="#/dashboard" data-ng-class="{active: isActiveMenu('/dashboard')}">
+                    	<i class="fa fa-home fa-fw fa-3x"></i>
+                    	{{translation.MENU.RECEPTION}}
+                    </a>
+                </li>
+                <li data-ng-show="showMenu('myvisitors')">
+                	<a href="#/myvisitors" data-ng-class="{active: isActiveMenu('/myvisitors')}">
+                    	<i class="fa fa-users fa-fw fa-3x"></i> 
+                        {{translation.MENU.MY_VISITOR}}
+                    </a>
+                </li>
+                <li data-ng-show="showMenu('schedule')">
+                	<a href="#/schedule" data-ng-class="{active: isActiveMenu('/schedule')}">
+                    	<i class="fa fa-calendar fa-fw fa-3x"></i> 
+                        {{translation.MENU.SCHEDULE}}
+                    </a>
+                </li>
+                <li data-ng-show="showMenu('bulkschedule')">
+                	<a href="#/bulkschedule" data-ng-class="{active: isActiveMenu('/bulkschedule')}">
+                        <i class="fa fa-cloud-upload fa-fw fa-3x"></i> 
+                        {{translation.MENU.BULK_UPLOAD}}
+                    </a>
+                </li>
+                <li data-ng-show="showMenu('reports')" data-ng-class="{active: isActiveMenu('/reports')}">
+                	<a href="#/reports" data-ng-class="{active: isActiveMenu('/reports')}">
+                    	<i class="fa fa-bar-chart-o fa-fw fa-3x"></i> 
+                        {{translation.MENU.REPORTS}}
+                    </a>
+                </li>
+            </ul>
+            <!-- /#side-menu --> 
+        </div>
+        <!-- /.sidebar-collapse --> 
+    </nav>
+    <!-- /.navbar-static-side -->
+    
+    <div id="page-wrapper">
+		
+        <div growl></div>
+        
+        <!-- Placeholder for views -->
+   		<div data-ng-view="" data-ng-show="locations.length && access" class="slide-reveal"></div>
+        
+    </div>
+    <!-- /#page-wrapper --> 
+    
+</div>
+<!-- /#wrapper --> 
+
+<div data-ng-include data-src="printFile"></div>
+
+<!--<script>
+    //optional need to be loaded before angular-file-upload-shim(.min).js
+    FileAPI = {
+        //only one of jsPath or jsUrl.
+        jsPath: 'js/FileAPI.min.js/', 
+        //only one of staticPath or flashUrl.
+        staticPath: 'js/FileAPI.flash.swf/'
+    }
+</script>-->
+<script src="js/angular-file-upload-shim.min.js"></script> 
+<!-- Core Scripts - Include with every page --> 
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<!-- Vendor Libs: Angular core files --> 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script src="js/angular-file-upload.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-cookies.min.js"></script>
+<!-- Vendor Libs: Angular UI Bootstrap --> 
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+<script src="js/dialogs.min.js"></script>
+<script src="js/angular-growl.min.js"></script>
+<!-- metisMenu --> 
+<script src="js/jquery.metisMenu.js"></script> 
+
+<!-- Dynamic script --> 
+<script>
+	
+	var APP = {};
+	
+	APP.CONFIG = {
+		"data":{
+			"user": {
+				"type": "SUPER_ADMIN",
+				"name": "Jane Doe",
+				"sso": "999999999"
+			},
+			"locations" : [
+				{"id": 4, "name": "AMSTC -Van Buren Twp, Michigan", "isHome": false, "hasPrint": true},
+				{"id": 5, "name": "BlueAsh (4445) OH US", "isHome": false, "hasPrint": false},
+				{"id": 6, "name": "Fairfield (CT) US", "isHome": true, "hasPrint": true}
+			],
+			"languages" : [
+				{"id": 1, "code": "en-GB", "name": "English", "isPreferred": true},
+				{"id": 2, "code": "fr-FR", "name": "French", "isPreferred": false},
+				{"id": 3, "code": "zh-CN", "name": "Chinese", "isPreferred": false},
+				{"id": 4, "code": "es-ES", "name": "Spanish", "isPreferred": false}
+			]
+		},
+		"exception": {
+			"status": false,
+			"code": 16002,
+			"message": null
+		}
+	};
+	
+</script>
+
+<!-- App libs --> 
+<script src="app/app.js"></script>
+<script src="app/controllers/AppController.js"></script>
+<script src="app/controllers/DashboardController.js"></script>
+<script src="app/controllers/ScheduleController.js"></script>
+<script src="app/controllers/ReportsController.js"></script>
+<script src="app/controllers/MyVisitorController.js"></script>
+<script src="app/controllers/ModalControllers.js"></script>
+<script src="app/controllers/BulkScheduleController.js"></script>
+<script src="app/services/services.js"></script>
+<script src="app/directives/directives.js"></script>
+<script src="app/custom/custom.js"></script>
+<!-- App languages --> 
+<script src="app/languages/vm.en-GB.js" charset="utf-8"></script>
+<script src="app/languages/vm.es-ES.js" charset="utf-8"></script>
+<script src="app/languages/vm.fr-FR.js" charset="utf-8"></script>
+<script src="app/languages/vm.zh-CN.js" charset="utf-8"></script>
+
+</body>
+</html>

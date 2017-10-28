@@ -1,0 +1,38 @@
+{
+    "data": {
+        "id": 2184,
+        "visitorId": null,
+        "recordId": 2184,
+        "recordType": "currentNotIn",
+        "visitor": null,
+        "firstName": "Abraham",
+        "lastName": "Divin Ann",
+        "phone": "919741900995",
+        "email": "divin.abraham@ge.com",
+        "company": "GE Corporate",
+        "locationId": null,
+        "destinationName": null,
+        "badge": null,
+        "hostId": 213004233,
+        "hostName": null,
+        "escortRequired": false,
+        "instructions": "nothing...",
+        "scheduledArrival": "2014-08-29 12:50:00",
+        "scheduledDeparture": "2014-08-29 16:50:00",
+        "langCode": null,
+        "instructionId": "1007-IT5",
+        "instructionName": null,
+        "sso": "302018127",
+        "adds": {
+            "COMPANY": "GE Corporate",
+            "PHONE": "919741900995",
+            "PASSPORT": "Two",
+            "MEETING_ROOM": "One"
+        }
+    },
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}

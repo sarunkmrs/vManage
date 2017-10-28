@@ -1,0 +1,17 @@
+<div id="printSection">
+	<div class="cardOuter">
+		<h1>{{printData.visitorFirstName}}</h1>
+		<h2>{{printData.visitorLastName}}</h2>
+		<h3>{{printData.company}}</h3>
+		<h4>{{ printData.timestamp | date: 'MM/dd/yy'}}</h4>
+		<p>{{printData.badge}}</p>
+		<div class="leftAlighn">
+			<p><span>Host</span></p>
+			<p>{{printData.host}}</p>
+		</div>
+		<div class="rightAlign">
+			<h5 class="er" ng-if="printData.escortRequired">ER</h5>
+            <h5>{{printData.code}}</h5>
+		</div>
+	</div>
+</div>

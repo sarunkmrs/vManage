@@ -1,0 +1,16 @@
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title ng-binding">
+		<i class="fa fa-camera"></i> {{ translation.CAPTURE.CAPTURE }} 
+        <button type="button" class="close" ng-click="cancel()">X</button>
+	</h4>
+</div>
+<div class="modal-body">
+    <p class="bg-danger" ng-if="notSupported">{{ translation.CAPTURE.NOT_SUPPORTED }}</p>
+    <p class="bg-danger" ng-if="notStarted">{{ translation.CAPTURE.NOT_STARTED }}</p>
+    <video id="video" autoplay></video>
+	<canvas id="canvas"></canvas>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn" ng-click="cancel()">{{ translation.CAPTURE.CANCEL }}</button>
+    <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="notStarted">{{ translation.CAPTURE.CAPTURE }}</button>
+</div>

@@ -1,0 +1,24 @@
+<form name="reportsForm" class="form-horizontal" ng-controller="VisitorHistoryController">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="startDate" class="col-sm-3 col-xs-3 control-label" ng-bind-html="translation.VISITOR_REPORTS.START_DATE"></label>
+                
+                <div class="col-sm-9 col-xs-9" data-ng-class="{'has-error': reportsForm.startDate.$invalid}">
+                    <p class="input-group">
+                      <input type="text" class="form-control time" id="startDate" name="startDate" data-ng-model="startDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min="minDate" max="maxDate" show-button-bar="false" readonly ng-required="true" is-open="startOpened" ng-change="changeEndDate()" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openCalendar($event, 'start');"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-seperation">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-warning" data-ng-click="resetForm();" > <i class="fa fa-repeat"></i> {{ translation.SCHEDULE.RESET }} </button>
+            <button type="submit" class="btn btn-primary" data-ng-click="downloadReport();"> <i class="fa fa-download"></i> {{ translation.VISITOR_REPORTS.EXPORT }} </button>
+        </div>
+    </div>
+</form>

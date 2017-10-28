@@ -1,0 +1,54 @@
+{
+    "data": {
+        "users": [
+            {
+                "name": "Balaji, Nagaiahgari(502115782)",
+                "access": "SUPER_ADMIN",
+                "sso": "502115782"
+            },
+            {
+                "name": "Divin(302018127)",
+                "access": "LOCATION_ADMIN",
+                "sso": "302018127"
+            },
+            {
+                "name": "Daryl(213004233)",
+                "access": "RECEPTION",
+                "sso": "213004233"
+            },
+            {
+                "name": "Nagaiahgari, Balaji(302018127)",
+                "access": "SCHEDULE",
+                "sso": "302018127"
+            },
+            {
+                "name": "Shafeek(502136545)",
+                "access": "LOCATION_ADMIN",
+                "sso": "502136545"
+            }
+        ],
+        "access": [
+            {
+                "id": "SCHEDULE",
+                "name": "Schedule"
+            },
+            {
+                "id": "RECEPTION",
+                "name": "Reception"
+            },
+            {
+                "id": "LOCATION_ADMIN",
+                "name": "Site Admin"
+            },
+            {
+                "id": "SUPER_ADMIN",
+                "name": "Super Admin"
+            }
+        ]
+    },
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}

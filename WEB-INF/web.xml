@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<servlet>
+		<servlet-name>VisitorManagement-WebApplication</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.ge.vm.service</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VisitorManagement-WebApplication</servlet-name>
+		<url-pattern>/vm/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>VMHistoryReport</display-name>
+		<servlet-name>VMHistoryReport</servlet-name>
+		<servlet-class>com.ge.vm.report.servlet.VMHistoryReport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VMHistoryReport</servlet-name>
+		<url-pattern>/VMHistoryReport</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UploadVisitorDoc</servlet-name>
+		<servlet-class>com.ge.vm.report.servlet.BulkVisitorUploadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadVisitorDoc</servlet-name>
+		<url-pattern>/vm/resources/UploadVisitorDoc</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<description></description>
+		<display-name>BadgePrintServlet</display-name>
+		<servlet-name>BadgePrintServlet</servlet-name>
+		<servlet-class>com.ge.vm.report.servlet.BadgePrintServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BadgePrintServlet</servlet-name>
+		<url-pattern>/badge</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>VisitorProfilePicServlet</display-name>
+		<servlet-name>VisitorProfilePicServlet</servlet-name>
+		<servlet-class>com.ge.vm.report.servlet.VisitorProfilePicServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VisitorProfilePicServlet</servlet-name>
+		<url-pattern>/vm/resources/visitorphoto</url-pattern>
+	</servlet-mapping>
+</web-app>

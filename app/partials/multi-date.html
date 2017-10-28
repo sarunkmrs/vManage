@@ -1,0 +1,75 @@
+<style>
+	.info-box p {
+		margin-top:20px;
+		padding:10px;
+		font-size:13px;
+	}
+	.coming .btn {
+    	background-color: #5cb85c!important;
+	    border-color: #4cae4c!important;
+	}
+	.not-coming .btn {
+    	background-color: #d2322d!important;
+	    border-color: #ac2925!important;
+	}
+	.past .btn {
+    	background-color: #ccc !important;
+		border-color: #eee !important;
+	}
+	.coming .btn, 
+	.coming .btn .text-info, 
+	.coming .btn .text-muted,
+	.not-coming .btn, 
+	.not-coming .btn .text-info, 
+	.not-coming .btn .text-muted,  
+	.past .btn, 
+	.past .btn .text-info, 
+	.past .btn .text-muted {
+		color: #fff!important;
+	}
+	
+</style>
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title ng-binding">
+		<i class="fa fa-calendar"></i> {{translation.SCHEDULE.MANAGE_DATES}}
+        <button type="button" class="btn close" ng-click="cancel()">X</button>
+	</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-6">
+            <big>{{translation.SCHEDULE.SCHEDULED_DATES}}:</big>
+            <uib-datepicker ng-model="schedule.activeDate" multi-select="schedule.blockedDates" select-range="false" min-date="schedule.startDate" max-date="schedule.endDate" show-weeks="false" show-button-bar="false" custom-class="getDayClass(date, mode)" date-disabled="true"></uib-datepicker>
+        </div>
+        <div class="col-sm-6">
+        	<big>{{translation.SCHEDULE.VISITS}}:</big>
+            <div class="well well-sm">
+            	
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="schedule.checkall" ng-change="checkUncheckAll()" ng-checked="schedule.availableDates.length == schedule.selectedDates.length" />
+                        {{translation.SCHEDULE.CHECK_UNCHECK_ALL}}
+                    </label>
+                </div>
+                <hr />
+                <ul class="list-unstyled">
+                	<li ng-repeat="d in schedule.availableDates">
+                    	<div class="checkbox">
+                			<label>
+                                <input type="checkbox" checklist-model="schedule.selectedDates" checklist-value="d" />
+                                {{d | date : 'fullDate'}}
+                			</label>
+                		</div>
+                    </li>
+                </ul>
+                <div class="info-box">
+        			<p class="bg-warning">{{translation.SCHEDULE.SELECT_DATES}}</p>
+        		</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-warning" ng-click="cancel()">{{translation.SCHEDULE.CANCEL}}</button>
+    <button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!schedule.selectedDates.length">{{translation.SCHEDULE.DELETE}}</button>
+</div>

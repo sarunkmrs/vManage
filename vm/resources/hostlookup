@@ -1,0 +1,16 @@
+{
+	"data": [
+		{"id": 1, "name": "Alabama (123456789)"}, 
+		{"id": 2, "name": "Alaska (123456789)"}, 
+		{"id": 3, "name": "Arizona (123456789)"}, 
+		{"id": 4, "name": "Arkansas (123456789)"}, 
+		{"id": 5, "name": "California (123456789)"}, 
+		{"id": 6, "name": "Colorado (123456789)"}, 
+		{"id": 7, "name": "Connecticut (123456789)"}
+	],
+	"exception": {
+		"status": null,
+        "code": 0,
+        "message": null
+	}
+}

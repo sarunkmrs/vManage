@@ -1,0 +1,28 @@
+{
+    "data": {
+		"checkedin": {
+			"id": 6, 
+			"visitorFirstName": "First name 9First name 9",
+            "visitorLastName": "First name 9First name 9",
+            "visitorPhone":"123412121212",
+            "company": "GE 123",
+			"host": "Host TFirst name 9First name 9wo",
+            "hostPhone":"12345",  
+			"badge": "7767867867870777", 
+            "timeIn": "09:30", 
+			"timestamp": "1389966202056",
+            "code": "HP",
+            "escortRequired": true
+		},
+		"statistics": {
+			"scheduled"	: 98,
+			"onSite"	: 11,
+			"departed"	: 19
+		}
+    },
+    "exception": {
+        "status": null,
+        "code": 0,
+        "message": null
+    }
+}

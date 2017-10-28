@@ -1,0 +1,159 @@
+<div class="row custom-page-header">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <h3>
+        	<i class="fa fa-cloud-upload"></i> {{translation.BULK_SCHEDULE.TITLE}}
+        </h3>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 location-group">
+        <form class="form-horizontal" role="form">
+            <div class="row">
+                <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION }} </label>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <select class="form-control mainSelector" ng-disabled="onEditPage" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);"></select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<form name="scheduleForm" class="form-horizontal" novalidate autocomplete="off">
+
+<div class="row">
+	
+    <div class="col-md-6">
+        
+        <h4 class="custom-heading"><i class="fa fa-male"></i> {{ translation.BULK_SCHEDULE.UPLOAD_SECTION }}</h4>
+        
+        <div class="bs-callout bs-callout-info">
+          <h4><i class="fa fa-info-circle"></i> {{ translation.BULK_SCHEDULE.DOWNLOAD_INSTR }}</h4>
+          <p ng-bind-html="translation.BULK_SCHEDULE.DOWNLOAD_INSTR_1 + translation.BULK_SCHEDULE.DOWNLOAD_INSTR_2"></p>
+          <p ng-bind-html="translation.BULK_SCHEDULE.DOWNLOAD_INSTR_3" class="note"></p>
+        </div>
+        <div class="form-group form-upload">
+          <div>
+            <label for="fileUpload" class="col-sm-3 col-xs-6">{{ translation.BULK_SCHEDULE.SELECT_FILE }}:</label>
+            <input type="file" ng-file-select="onFileSelect($files)" class="col-xs-6">
+          </div>
+        </div>
+        <div ng-show="sucess">
+          <div ng-show="selectedFiles != null">
+            <h5>Details:</h5>
+            <div class="sel-file" ng-repeat="f in selectedFiles">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="progress " ng-show="progress[$index] >= 0">						
+                    <p style="width:{{ progress[$index] }}%;" >
+                        {{f.name}}
+                        <span class="pull-right">{{progress[$index]}}%</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button ng-click="cancelUploads()" class="btn btn-warning"> <i class="fa fa-trash-o"></i> </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+	
+    <div class="col-md-6">
+        
+        <h4 class="custom-heading"><i class="fa fa-clock-o"></i> {{ translation.SCHEDULE.VISIT_INFORMATION }}</h4>
+        
+        <div class="form-group">
+            <label for="host" class="col-sm-3 control-label"> {{ translation.SCHEDULE.HOST }} * </label>
+            <div class="col-sm-9" ng-class="{'has-error': (schedule.host == undefined || schedule.host == null)}">
+        		
+                <ui-select ng-model="schedule.host" ng-required="true" theme="bootstrap">
+                	<ui-select-match placeholder="{{translation.SCHEDULE.HOST_SELECTION}}">
+                    	{{$select.selected.name}}
+                    </ui-select-match>
+                	<ui-select-choices repeat="host in schedule.hosts | filter: $select.search">
+                		<div ng-bind-html="host.name | highlight: $select.search"></div>
+                	</ui-select-choices>
+                </ui-select>
+        		
+        	</div>
+        </div>
+		
+        <div class="form-group">
+            <label for="escortRequired" class="col-sm-3 control-label"> {{ translation.SCHEDULE.ESCORT_REQUIRED }} </label>
+            <div class="col-sm-9">
+            	<div class="checkbox">
+                	<input type="checkbox" id="escortRequired" name="escortRequired" ng-model="schedule.escortRequired" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group" ng-show="schedule.instructionLists.length && !isRussia">
+            <label for="instructionList" class="col-sm-3 control-label" ng-bind-html="translation.SCHEDULE.LOCATION_INSTRUCTION"></label>
+            <div class="col-sm-9 hostList">
+                <div class="spinner instr_list"><i class="fa fa-refresh fa-spin"></i></div>
+                <select class="form-control mainSelector" id="instructionList"  name="instructionList" ng-model="schedule.instructionList" ng-options="instructionList.name for instructionList in schedule.instructionLists">
+                    <option value="">{{ translation.SCHEDULE.LOADING }}</option> 
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="instructions" class="col-sm-3 control-label"> {{ translation.SCHEDULE.INSTRUCTIONS }} </label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="instructions" name="instructions" cols="6" rows="4" ng-model="schedule.instructions" placeholder="{{ isRussia ? translation.SCHEDULE.ADDS['INSTRUCTIONS_PLACEHOLDER'] : translation.SCHEDULE.ENTER_INSTRUCTIONS }}" maxlength="500"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="scheduledArrival" class="col-sm-3 col-xs-12 control-label calendar-align" ng-bind-html="translation.SCHEDULE.SCHEDULED_ARRIVAL"></label>
+			
+            <div class="col-sm-5 col-xs-5" ng-class="{'has-error': scheduleForm.scheduledArrival.$invalid}">
+                <p class="input-group calendar-align">
+                  <input type="text" class="form-control time" ng-class="{blocked: disableScheduleDetails}" id="scheduledArrival" name="scheduledArrival" ng-model="schedule.scheduledArrival" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minDate" max-date="" show-button-bar="false" readonly ng-required="true" ng-disabled="disableScheduleDetails" is-open="arrivalOpened" ng-click="openCalendar($event, 'arrival');" ng-change="changeDepartureDate()" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" ng-class="{blocked: disableScheduleDetails}" ng-disabled="disableScheduleDetails" ng-click="openCalendar($event, 'arrival');"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+            <div class="col-sm-4 col-xs-4" style="position:relative;z-index:900;">
+            	<div class="disabled" ng-if="disableScheduleDetails"></div>
+                <uib-timepicker type="text" class="time" ng-class="{blocked: disableScheduleDetails}" ng-model="schedule.arrivalTime" minute-step="5" required ng-disabled="disableScheduleDetails" readonly-input="true"></uib-timepicker>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="scheduledDeparture" class="col-sm-3 col-xs-12 control-label calendar-align" ng-bind-html ="translation.SCHEDULE.SCHEDULED_DEPARTURE"></label>
+            
+            <div class="col-sm-5 col-xs-5" ng-class="{'has-error': scheduleForm.scheduledDeparture.$invalid}">
+                <p class="input-group calendar-align">
+                  <input type="text" class="form-control time" id="scheduledDeparture" name="scheduledDeparture" ng-model="schedule.scheduledDeparture" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minDepartureDate" max-date="" show-button-bar="false" readonly ng-required="true" is-open="departureOpened" ng-click="openCalendar($event, 'departure');" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="openCalendar($event, 'departure');"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+            <div class="col-sm-4 col-xs-4">
+                <uib-timepicker type="text" class="time" ng-model="schedule.departureTime" minute-step="5" required readonly-input="true"></uib-timepicker>
+            </div>
+        </div>
+		        
+    </div>
+    
+</div>
+
+<div class="row form-seperation">
+    <div class="col-sm-12 text-right" ng-hide="onEditPage">
+		
+        <button type="button" class="actionBtn btn btn-warning " id="reset" ng-click="resetForm();" >
+        	<i class="fa fa-repeat"></i> 
+            {{ translation.SCHEDULE.RESET }}
+        </button>
+        
+        <button type="submit" class="actionBtn btn btn-primary " id="save" ng-disabled="scheduleForm.$invalid || !sucess" ng-click="execute('create', false);" analytics-on analytics-event="Click" analytics-category="Bulk Schedule" analytics-label="Save">
+        	<i class="fa fa-floppy-o"></i> 
+        	{{ translation.SCHEDULE.SAVE }}
+        </button>
+    </div>
+</div>
+<input type="hidden" name="recordId" ng-model="schedule.recordId" />
+
+</form>

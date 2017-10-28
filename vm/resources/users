@@ -1,0 +1,49 @@
+{
+  "data": {
+		"users" : [
+			  {
+			      "name": "Balaji, Nagaiahgari(502115782)",
+			      "access": "SUPER_ADMIN",
+			      "sso": "502115782"
+			  },
+			  {
+			      "name": "Balaji, Pullikaran(502157822)",
+			      "access": "SITE_ADMIN",
+			      "sso": "502115782"
+			  },
+			  {
+			      "name": "Pullikaran, Balaji(502115782)",
+			      "access": "RECEPTION",
+			      "sso": "502115782"
+			  },
+			  {
+			      "name": "Nagaiahgari, Balaji(502157822)",
+			      "access": "SCHEDULE",
+			      "sso": "502115782"
+			  }
+		  ],
+		"access" :[
+	      	   {
+	      	   		"id": "SCHEDULE", 
+	      	   		"name": "Schedule" 
+	      	   },
+	           {	
+	           		"id": "RECEPTION", 
+	           		"name": "Reception"
+	           },
+	           {	
+	           		"id": "SITE_ADMIN", 
+	           		"name": "Site Admin" 
+	           },
+	           {	
+	           		"id": "SUPER_ADMIN", 
+	           		"name": "Super Admin" 
+	           }
+      	]
+   },
+  "exception": {
+      "status": false,
+      "code": 0,
+      "message": ""
+  }
+} 

@@ -1,0 +1,13 @@
+{
+    "data": {
+		"name": "Balaji, Nagaiahgari(502115782)",
+		"access": "SUPER_ADMIN",
+		"sso": "502115782"
+		
+    },
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": null
+    }
+}

@@ -1,0 +1,34 @@
+<div class="row custom-page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h3>
+      <i class="fa fa-cogs"></i> {{translation.ADMIN.TITLE}}
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary"> <i class="fa {{pageIcon}}"></i>  {{pageName}}</button>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> <span class="sr-only">Toggle Dropdown</span> </button>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li ng-repeat="page in pageList">
+            <a href="javascript:void(0);" ng-click="changeAdmin(page);">
+              <i class="fa {{page.icon}}"></i> {{page.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </h3>  
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 location-group">
+    <form class="form-horizontal" role="form">
+      <div class="row">
+        <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION}} </label>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <select class="form-control mainSelector" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);"></select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row custom-page-header">
+  <div class="slide-animate-container">
+    <div class="slide-animate" ng-include="pageTemplate"></div>
+  </div>
+</div>

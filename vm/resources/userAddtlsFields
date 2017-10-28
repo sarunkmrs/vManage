@@ -1,0 +1,14 @@
+{
+    "data": {
+    	"PHONE"			: "999-999-999",
+        "COMAPNY"		: "GE",
+        "DRIVERS_LICENSE"		: "11111111", 
+        "MEETING_ROOM"	: "33333333", 
+        "PASSPORT"	: "44444444"
+    },
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}

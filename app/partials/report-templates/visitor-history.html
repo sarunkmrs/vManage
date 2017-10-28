@@ -1,0 +1,40 @@
+<form name="reportsForm" class="form-horizontal" ng-controller="VisitorHistoryController">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="startDate" class="col-sm-3 col-xs-3 control-label" ng-bind-html="translation.VISITOR_REPORTS.START_DATE"></label>
+                
+                <div class="col-sm-9 col-xs-9" ng-class="{'has-error': reportsForm.startDate.$invalid}">
+                    <p class="input-group">
+                      <input type="text" class="form-control time" id="startDate" name="startDate" ng-model="startDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="" max-date="maxDate" show-button-bar="false" readonly ng-required="true" is-open="startOpened" ng-click="openCalendar($event, 'start');" ng-change="changeEndDate()" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openCalendar($event, 'start');"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="endDate" class="col-sm-3 col-xs-3 control-label" ng-bind-html="translation.VISITOR_REPORTS.END_DATE"></label>
+                
+                <div class="col-sm-9 col-xs-9" ng-class="{'has-error': reportsForm.endDate.$invalid}">
+                    <p class="input-group">
+                      <input type="text" class="form-control time" id="endDate" name="endDate" ng-model="endDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minEndDate" max-date="maxEndDate" show-button-bar="false" readonly ng-required="true" is-open="endOpened" ng-click="openCalendar($event, 'end');" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="openCalendar($event, 'end');"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row form-seperation">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-warning" ng-click="resetForm();" > <i class="fa fa-repeat"></i> {{ translation.SCHEDULE.RESET }} </button>
+            <button type="submit" class="btn btn-primary" ng-click="downloadReport();" analytics-on analytics-event="Click" analytics-category="Visitor History Report" analytics-label="Export"> <i class="fa fa-download"></i> {{ translation.VISITOR_REPORTS.EXPORT }} </button>
+        </div>
+    </div>
+</form>

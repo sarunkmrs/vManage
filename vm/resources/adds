@@ -1,0 +1,12 @@
+{
+    "data": {
+        "FIELD_ONE": "11111111", 
+        "FIELD_THREE": "33333333", 
+        "FIELD_FOUR": "44444444"
+    },
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}

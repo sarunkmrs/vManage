@@ -1,0 +1,16 @@
+<div class="row" data-ng-controller="UsersController">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+  <!--<tabset class="tabcordion">
+      <tab ng-repeat="pane in panes" active="pane.active" heading="{{pane.title}}">
+        <div ng-include="pane.template"></div>
+      </tab>  
+    </tabset>-->
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li ng-repeat="pane in panes" ng-class="{active:pane.active}" ng-click="onClickTab(pane)">
+        <a href="javascript:void(0);">{{pane.title}}</a>
+      </li>
+    </ul>
+    <div class="tab-content" ng-include="currentTab"></div>
+  </div>
+</div>

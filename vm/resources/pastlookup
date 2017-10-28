@@ -1,0 +1,59 @@
+{
+    "data": [
+        {
+            "id": null,
+            "visitorId": 2250,
+            "recordId": null,
+            "recordType": null,
+            "visitor": "Maheen,  Shafeek (502136545)",
+            "firstName": " Shafeek",
+            "lastName": "Maheen",
+            "phone": "34",
+            "email": "shafeek.maheen@ge.com",
+            "company": "GE Corporate",
+            "locationId": null,
+            "destinationName": null,
+            "badge": null,
+            "hostId": null,
+            "hostName": null,
+            "escortRequired": null,
+            "instructions": null,
+            "scheduledArrival": null,
+            "scheduledDeparture": null,
+            "langCode": null,
+            "instructionId": null,
+            "instructionName": null,
+            "sso": "502136545"
+        },
+        {
+            "id": null,
+            "visitorId": 2244,
+            "recordId": null,
+            "recordType": null,
+            "visitor": "sharma, rahul",
+            "firstName": "rahul",
+            "lastName": "sharma",
+            "phone": "1234",
+            "email": "test@ge.com",
+            "company": null,
+            "locationId": null,
+            "destinationName": null,
+            "badge": null,
+            "hostId": null,
+            "hostName": null,
+            "escortRequired": null,
+            "instructions": null,
+            "scheduledArrival": null,
+            "scheduledDeparture": null,
+            "langCode": null,
+            "instructionId": null,
+            "instructionName": null,
+            "sso": null
+        }
+    ],
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}

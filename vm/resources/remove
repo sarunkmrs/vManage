@@ -1,0 +1,17 @@
+{
+    "data": {
+        "removed": {
+			"id": 6 
+		},
+		"statistics": {
+			"scheduled"	: 98,
+			"onSite"	: 11,
+			"departed"	: 19
+		}
+    },
+    "exception": {
+        "status": null,
+        "code": 0,
+        "message": null
+    }
+}

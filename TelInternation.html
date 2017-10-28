@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+  <head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//jackocnr.com/lib/intl-tel-input/build/css/intlTelInput.css" rel="stylesheet" />
+  </head>
+  <body ng-app="myApp" ng-controller="IndexController">
+    <div>TODO write content</div>
+    <intl-tel ng-model="telnr" ng-blur="validateTelephoneInput(telnr, $event)" ng-focus="clearValidation()" ></intl-tel>
+    <span class="alert alert-success" ng-show="ShowValidMessage">Valid <i class="icon icon-check"></i></span>
+    <span class="alert alert-error" ng-show="ShowInValidMessage">Invalid number <i class="icon icon-delete"></i></span>
+    <!--{{telnr}}-->
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script>
+      var app = angular.module('myApp',[]);
+      app.controller('IndexController', function($rootScope, $scope){
+        $rootScope.countryCode = 'us';
+        $scope.validateTelephoneInput = function (telephoneNumber, event) {
+          // console.log(event);
+          var countryCode = event.target.nextSibling.children[0].children[0].className.split(" ")[1];
+          console.log(countryCode);
+          $scope.validateTelephoneNumber(telephoneNumber, countryCode);
+        };
+        
+        // validating the telephone number with the country code via the google telephone validation library isValidNumber()
+        $scope.validateTelephoneNumber = function (telephoneNumber, countryCode) {
+            $scope.TelephoneNumberToValidate = telephoneNumber;
+            $scope.HasTelephoneNumber = (telephoneNumber != '');
+            var val = $.trim(telephoneNumber), countryCode = countryCode;
+            $scope.IsValidTelephone = window.isValidNumber(val, countryCode);
+            $scope.ShowValidMessage = $scope.HasTelephoneNumber && $scope.IsValidTelephone;
+            $scope.ShowInValidMessage = $scope.HasTelephoneNumber && !$scope.IsValidTelephone;
+        }
+        // when someone starts to edit the number, clear the validation message to avoid confusion
+        $scope.clearValidation = function () {
+          $scope.ShowValidMessage = false;
+          $scope.ShowInValidMessage = false;
+        };
+      });
+    </script>
+    <script src="//jackocnr.com/lib/intl-tel-input/build/js/intlTelInput.js"></script>
+    <script src="js/isValidNumber.js"></script>
+    <script>
+      app.directive('intlTel', function($rootScope){
+        return{
+          replace:true,
+          restrict: 'E',
+          require: 'ngModel',
+          template: '<input type="text" placeholder="e.g. +1 702 123 4567">',
+          link: function(scope,element,attrs,ngModel){
+            var read = function() {
+            var inputValue = element.val();
+            ngModel.$setViewValue(inputValue);
+          }      
+          element.intlTelInput({
+            defaultCountry: $rootScope.countryCode,
+          });
+          element.on('focus blur keyup change', function() {
+            scope.$apply(read);
+          });
+          read();
+          }
+        }
+      });
+    </script>
+</body>
+</html>

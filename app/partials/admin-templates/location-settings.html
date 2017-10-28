@@ -1,0 +1,45 @@
+<!--CUSTOM FIELDS-->
+<form name="locationSettingsForm" ng-controller="LocationSettingsController" class="form-horizontal" novalidate autocomplete="off">
+    
+    <div class="row">
+        
+        <div class="col-md-6">
+            <div class="form-group" ng-repeat="customFiled in customFields | orderBy: 'ordering'">
+                <ng-form name="customForm" ng-class="{'required': customFiled.required}">
+                    <label for="{{customFiled.key}}" class="col-md-8 control-label"> {{translation.LOCATION[customFiled.key]}}</label>
+                    <div class="col-md-4" ng-class="{'has-error': customForm.locset.$invalid}">
+                        
+                        <input type="text" class="form-control" id="{{customFiled.key}}" name="locset" ng-model="loc.settings[customFiled.key]" placeholder="{{ translation.LOCATION[customFiled.key] }}" maxlength="200" ng-required="customFiled.required" ng-if="customFiled.type=='TEXT_BOX'" />
+                        
+                        <textarea class="form-control" id="{{customFiled.key}}" name="locset" cols="6" rows="3"  ng-model="loc.settings[customFiled.key]" placeholder="{{ translation.LOCATION[customFiled.key] }}" ng-required="customFiled.required" ng-if="customFiled.type=='TEXT_AREA'"></textarea>
+                        
+                        <select class="form-control" id="{{customFiled.key}}"  name="locset" ng-model="loc.settings[customFiled.key]" ng-options="item.name for item in customFiled.items track by item.id" ng-required="customFiled.required" ng-if="customFiled.type=='SELECT_BOX'">
+                        	<option value="">-{{translation.LOCATION.SELECT_MORE_FIELDS}}-</option>
+                		</select>
+                		
+                        <div class="checkbox" ng-if="customFiled.type=='CHECK_BOX'">
+                        	<input type="checkbox" id="{{customFiled.key}}" name="locset" ng-model="loc.settings[customFiled.key]" ng-if="customFiled.type=='CHECK_BOX'" />
+                        </div>
+                        
+                    </div>
+                </ng-form>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row form-seperation">
+        <div class="col-md-12 text-right">
+            
+            <button type="button" class="actionBtn btn btn-warning " id="reset" data-ng-click="reset();" >
+                <i class="fa fa-repeat"></i> 
+                {{ translation.SCHEDULE.RESET }}
+            </button>
+            
+            <button type="submit" class="actionBtn btn btn-primary " id="save" data-ng-disabled="locationSettingsForm.$invalid" data-ng-click="save();">
+                <i class="fa fa-floppy-o"></i> 
+                {{ translation.SCHEDULE.SAVE }}
+            </button>
+        </div>
+    </div>
+</form>

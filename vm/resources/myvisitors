@@ -1,0 +1,19 @@
+{
+	"data":[
+          {"id": 1, "sso": "302018127", "date": "12-01-2013", "name":"Visitor One", "phone": "12345", "status":"Visited", "company": "GE",  "location": "Africa", "recordType": "past"},
+          {"id": 2, "sso": "213004233", "date": "01-15-2014", "name":"Visitor two", "phone": "12345", "status":"Not Visited", "company": "GE one",  "location": "Japan", "recordType":"past"},
+          {"id": 3, "date": "12-31-2013", "name":"Visitor three", "phone": "12345", "status":"<strong>Visited</strong>12-12-1914", "company": "GE Two",  "location": "Korea", "recordType":"currentIn"},
+          {"id": 4, "sso": "502115782", "date": "01-25-2014", "name":"Visitor four", "phone": "12345", "status":"Not Visited", "company": "GE Three",  "location": "China", "recordType":"currentNotIn"},
+          {"id": 5, "sso": "213004233", "date": "01-31-2014", "name":"Visitor five", "phone": "12345", "status":"Visited", "company": "GE Four",  "location": "India", "recordType":"currentNotIn"},
+          {"id": 6, "sso": "302018127", "date": "02-22-2014", "name":"Visitor six", "phone": "12345", "status":"Not Visited", "company": "GE Five",  "location": "USA", "recordType":"future"},
+          {"id": 7, "sso": "502115782", "date": "01-15-2014", "name":"Visitor two", "phone": "12345", "status":"Not Visited", "company": "GE one",  "location": "Japan", "recordType":"past"},
+          {"id": 8, "sso": "213004233", "date": "12-31-2013", "name":"Visitor three", "phone": "12345", "status":"<strong>Visited</strong>12-12-1914", "company": "GE Two",  "location": "Korea", "recordType":"currentIn"},
+          {"id": 9, "sso": "502115782", "date": "01-25-2014", "name":"Visitor four", "phone": "12345", "status":"Not Visited", "company": "GE Three",  "location": "China", "recordType":"currentNotIn"},
+          {"id": 10, "sso": "302018127", "date": "01-31-2014", "name":"Visitor five", "phone": "12345", "status":"Visited", "company": "GE Four",  "location": "India", "recordType":"currentNotIn"}
+    ],
+    "exception": {
+        "status": null,
+        "code": 0,
+        "message": null
+    }
+}

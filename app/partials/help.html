@@ -1,0 +1,82 @@
+<div class="modal-header dialog-header-confirm">
+	<h4 class="modal-title ng-binding">
+		<i class="fa fa-question-circle"></i> {{translation.MY_VISITOR.HELP}} 
+        <button type="button" class="close" ng-click="cancel()">X</button>
+	</h4>
+</div>  
+<div class="modal-body"  ng-if="page=='myvisitors'">
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-eye-slash ring hideicon"></i> </a>
+        {{translation.MY_VISITOR.HELP_LINE_1}}
+    </p>
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-pencil ring edit"></i> </a>
+        {{translation.MY_VISITOR.HELP_LINE_2}}
+    </p>
+    <p>
+    	<a href="javascript:void(0);"><i class="fa fa-retweet ring edit"></i> </a>
+        {{translation.MY_VISITOR.HELP_LINE_3}}
+    </p>
+</div>
+<div class="modal-body" ng-if="page=='schedule'">
+	<p><b>{{translation.SCHEDULE.HELP_HEADING}}</b></p><br />
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_1"></span>
+    </p>
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_2"></span>
+    </p>
+    <p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_3"></span>
+    </p>
+</div>
+
+<div class="modal-body" ng-if="page=='myusers'">
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i></a>
+        <span ng-bind-html="translation.USERS.HELP_LINE_1"></span>
+    </p>
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-pencil ring edit"></i> </a>
+        </a>
+        <span ng-bind-html="translation.USERS.HELP_LINE_2"></span>
+    </p>
+    <p>
+    	<a href="javascript:void(0);"><i class="fa fa-times ring hideicon"></i></i> </a>
+        <span ng-bind-html="translation.USERS.HELP_LINE_3"></span>
+    </p>
+</div>
+
+<div class="modal-body" ng-if="page=='bannedvisitors'">
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_1"></span>
+    </p>
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_2"></span>
+    </p>
+    <p>
+    	<a href="javascript:void(0);"><i class="fa fa-hand-o-right"></i> </a>
+        <span ng-bind-html="translation.SCHEDULE.HELP_LINE_3"></span>
+    </p>
+</div>
+
+<div class="modal-body" ng-if="page=='bannedschedules'">
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-check ring"></i></a>
+        <span ng-bind-html="translation.BANNED_SCHEDULES.HELP_LINE_1"></span>
+    </p>
+	<p>
+    	<a href="javascript:void(0);"><i class="fa fa-times ring"></i> </a>
+        </a>
+        <span ng-bind-html="translation.BANNED_SCHEDULES.HELP_LINE_2"></span>
+    </p>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="cancel()">{{translation.SCHEDULE.OK}}</button>
+</div>

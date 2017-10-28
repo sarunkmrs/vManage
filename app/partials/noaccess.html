@@ -1,0 +1,33 @@
+<div class="row custom-page-header">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <h3>
+        	<i class="fa fa-user-times"></i> {{translation.NOACCESS.TITLE}}
+        </h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    	
+        <!-- No access message -->
+        <h4>{{translation.NOACCESS.NOTICE}}</h4>
+    	
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    	
+    	<form name="requestForm" class="form-inline">
+            <div class="form-group">
+                <label for="location">{{translation.NOACCESS.LOCATION}}</label>
+                <select class="form-control" id="location" name="location" ng-model="mylocation" ng-options="location.id as location.name for location in allLocations" ng-required="true">
+                	<option value="">{{translation.NOACCESS.LOCATION}}</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" ng-click="ok()" ng-disabled="requestForm.$invalid">
+                {{translation.NOACCESS.GO}}
+            </button>
+        </form>
+        
+    </div>
+</div>

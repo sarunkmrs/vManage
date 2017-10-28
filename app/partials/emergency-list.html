@@ -1,0 +1,28 @@
+<div id="printSection" class="padd">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th colspan="5">{{ translation.DASHBOARD.EMERGENCY_TITLE }} - {{ printData.locationName }}  <span class="pull-right">{{ printData.time }}</span></th>
+            </tr>
+            <tr>
+                <th>{{translation.DASHBOARD.VISITOR}}</th>
+                <th>{{translation.DASHBOARD.HOST}}</th>
+                <th>{{translation.DASHBOARD.BADGE}}</th>
+                <th>{{translation.DASHBOARD.TIME_IN}}</th>                
+                <th>{{translation.SCHEDULE.INSTRUCTIONS}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="schedule in printData.schedules">
+                <td> <strong>{{ schedule.visitorLastName }}, {{ schedule.visitorFirstName }}</strong> <br /> {{ schedule.visitorPhone }} </td>
+                <td> <strong>{{ schedule.host }}</strong> <br /> {{ schedule.hostPhone }}</td>
+                <td>{{ schedule.badge }} </td>
+                <td ng-bind-html="schedule.timeIn"></td>
+                <td>{{ schedule.instructions }}</td>
+            </tr>
+            <tr ng-hide="printData.schedules.length">
+                <td colspan="5"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

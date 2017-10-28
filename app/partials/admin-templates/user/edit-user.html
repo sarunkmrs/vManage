@@ -1,0 +1,67 @@
+<div class="row custom-heading">
+  <div class="col-md-3 col-sm-6 col-xs-10">
+    <input type="text" class="form-control searchCustom" id="filterUsers" data-ng-model="$parent.filterUsers" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+  </div>
+  <div class="col-md-9 col-sm-6 col-xs-2">
+    <button type="button" class="btn btn-link pull-right help" data-ng-click="help();">
+      <i class="fa fa-question-circle"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="col-xs-6">{{translation.USERS.NAME}}</th>
+            <th class="col-xs-3">{{translation.USERS.ACCESS_LEVEL}}</th>
+            <th class="col-xs-3 text-center">{{translation.USERS.ACTION}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="user in users| filter: filterUsers">
+            <td>
+              <span class="avatar">
+                <img src="http://supportcentral.gecdn.com/images/person/temp/{{user.sso}}.jpg" data-ng-show="user.showAvatar" />
+                <img src="images/default-profile-picture.jpg" data-ng-hide="user.showAvatar" />
+              </span>
+              <h5 class="inline">
+                <strong>{{ user.name}}</strong> <br /> <small>{{ user.sso}} </small>
+              </h5>
+            </td>
+            <td>
+              <span editable-select="user.access" e-name="access" e-form="accessForm" e-ng-options="a.id as a.name for a in access">
+                {{ showAccessLevel(user)}}
+              </span>
+            </td>
+            <td class="text-center">
+              <div class="btn-group tips">
+                <form editable-form name="accessForm" ng-show="accessForm.$visible" class="form-buttons form-inline" onbeforesave="saveUser($data, user.sso)">
+                  <button type="submit" ng-disabled="accessForm.$waiting" class="btn btn-primary" analytics-on analytics-event="Click" analytics-category="Admin" analytics-label="Update">
+                    {{ translation.SCHEDULE.SAVE}}
+                  </button>
+                  <button type="button" ng-disabled="accessForm.$waiting" ng-click="accessForm.$cancel()" class="btn btn-default">
+                    {{ translation.SCHEDULE.CANCEL}}
+                  </button>
+                </form>
+                <div class="buttons" ng-show="!accessForm.$visible" ng-if="(user.sso != currentUserSSO)">
+                  <a href="javascript:void(0);" uib-tooltip="{{translation.DASHBOARD.EDIT_TIP}}" ng-click="accessForm.$show()" ng-show="!accessForm.$visible" analytics-on analytics-event="Click" analytics-category="Admin" analytics-label="Edit">
+                    <i class="fa fa-pencil ring edit"></i>
+                  </a>
+                  <a href="javascript:void(0);" data-ng-click="remove(user, $index);" uib-tooltip="{{translation.DASHBOARD.DELETE_TIP}}" ng-show="!accessForm.$visible" analytics-on analytics-event="Click" analytics-category="Admin" analytics-label="Delete">
+                    <i class="fa fa-times ring hideicon"></i>
+                  </a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr data-ng-hide="( users | filter: filterUsers).length">
+            <td colspan="3"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

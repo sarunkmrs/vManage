@@ -1,0 +1,78 @@
+<div class="row custom-page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h3>
+      <i class="fa fa-users"></i> {{translation.MY_VISITOR.TITLE}}
+    </h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 location-group">
+    <form class="form-horizontal" role="form">
+      <div class="row">
+        <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION}} </label>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <select class="form-control mainSelector" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);"></select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row custom-heading">
+  <div class="col-md-3 col-sm-6 col-xs-10">
+    <input type="text" class="form-control searchCustom" id="filterVisitors" ng-model="filterVisitors" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+  </div>
+  <div class="col-md-9 col-sm-6 col-xs-2">
+    <button type="button" class="btn btn-link pull-right help" ng-click="help();">
+      <i class="fa fa-question-circle"></i>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <!--infinite-scroll="loadMore()" infinite-scroll-disabled="busy" infinite-scroll-distance="1"-->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="col-xs-2">{{translation.MY_VISITOR.DATE}}</th>
+            <th class="col-xs-4">{{translation.MY_VISITOR.VISITOR}}</th>
+            <th class="col-xs-2">{{translation.MY_VISITOR.STATUS}}</th>
+            <th class="col-xs-2">{{translation.MY_VISITOR.COMPANY}}</th>
+            <th class="col-xs-2 text-center">{{translation.MY_VISITOR.ACTION}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="visitor in visitors | filter: filterVisitors">
+            <td>{{ visitor.date}}</td>
+            <td>
+              	<span class="avatar sm rel" tooltip-html-unsafe="{{visitor.tooltip}}">
+                	<img src="http://supportcentral.gecdn.com/images/person/temp/{{visitor.sso}}.jpg" ng-show="visitor.showAvatar" />
+                    <img class="profile" ng-src="vm/resources/visitorphoto?recordId={{visitor.id}}" ng-show="visitor.visitorPic" />
+                	<i class="fa fa-user"></i>
+              	</span>
+              	<h5 class="inline"><strong>{{ visitor.name}}</strong><br /><small>{{ visitor.phone}}</small></h5>
+            </td>
+            <td ng-bind-html="visitor.status"></td>
+            <td>{{ visitor.company}}</td>
+            <td class="text-center">
+              <div class="btn-group tips">
+                <a href="#/schedule/{{visitor.id}}/m" uib-tooltip="{{translation.DASHBOARD.RESCHEDULE_TIP}}" ng-if="visitor.recordType == 'past'" analytics-on analytics-event="Click" analytics-category="My Visitors" analytics-label="Reschedule">
+                  <i class="fa fa-retweet ring edit"></i>
+                </a>
+                <a href="#/schedule/{{visitor.id}}/m" uib-tooltip="{{translation.DASHBOARD.EDIT_TIP}}" ng-if="visitor.recordType != 'past'" analytics-on analytics-event="Click" analytics-category="My Visitors" analytics-label="Edit">
+                  <i class="fa fa-pencil ring edit"></i>
+                </a>
+                <a href="javascript:void(0);" ng-click="hideSchedule(visitor, $index);" uib-tooltip="{{translation.DASHBOARD.HIDE_TIP}}" analytics-on analytics-event="Click" analytics-category="My Visitors" analytics-label="Hide">
+                  <i class="fa fa-eye-slash ring hideicon"></i>
+                </a> 
+              </div>
+            </td>                    
+          </tr>
+          <tr ng-hide="( visitors | filter: filterVisitors).length">
+            <td colspan="5"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

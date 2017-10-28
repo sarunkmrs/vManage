@@ -1,0 +1,88 @@
+<div class="row custom-page-header">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <h3>
+      <i class="fa fa-user-times"></i> {{translation.BANNED_VISITORS.TITLE}}
+    </h3>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 location-group hidden">
+    <form class="form-horizontal" role="form">
+      <div class="row">
+        <label for="location" class="control-label col-lg-4 col-md-4 hidden-sm hidden-xs"> {{ translation.GLOBAL.LOCATION}} </label>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <select class="form-control mainSelector" id="location" name="location" ng-model="location" ng-options="location.id as location.name for location in locations" ng-change="changeLocation(location);" ng-disabled="true"></select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row custom-heading">
+  <div class="col-md-3 col-sm-6 col-xs-10">
+    <input type="text" class="form-control searchCustom" id="filterVisitors" ng-model="filterVisitors" placeholder="{{translation.DASHBOARD.SEARCH}}" />
+  </div>
+  <div class="col-md-9 col-sm-6 col-xs-2">
+    <button type="button" class="btn btn-default pull-right" ng-click="bann();">
+      <i class="fa fa-user-times"></i> {{translation.BANNED_VISITORS.BANN_USER}}
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <!--infinite-scroll="loadMore()" infinite-scroll-disabled="busy" infinite-scroll-distance="1"-->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-condensed table-hover table-responsive">
+        <thead>
+          <tr>
+            <th class="col-xs-3">{{translation.BANNED_VISITORS.VISITOR}}</th>
+            <th class="col-xs-3">{{translation.BANNED_VISITORS.REQUESTER}}</th>
+            <th class="col-xs-3">{{translation.BANNED_VISITORS.REASON}}</th>
+            <th class="col-xs-2">{{translation.BANNED_VISITORS.DATE_RANGE}}</th>
+            <th class="col-xs-1 text-center">{{translation.BANNED_VISITORS.ACTION}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="visitor in bannedVisitors| filter: filterVisitors">
+            <td>
+              	<span class="avatar sm rel" uib-tooltip-html-unsafe="{{visitor.tooltipVisitor}}">
+                	<img src="http://supportcentral.gecdn.com/images/person/temp/{{visitor.sso}}.jpg" ng-show="visitor.showAvatarVisitor" />
+                    <img class="profile" ng-src="vm/resources/bannedvisitorphoto?recordId={{visitor.recordId}}" ng-show="visitor.visitorPic" />
+                	<i class="fa fa-user"></i>
+              	</span>
+              	<h5 class="inline"><strong>{{ visitor.lastName +', '+ visitor.firstName}}</strong><br /><small>{{ visitor.sso}}</small></h5>
+            </td>
+            <td>
+              	<span class="avatar sm rel" uib-tooltip-html-unsafe="{{visitor.tooltipRequester}}">
+                	<img src="http://supportcentral.gecdn.com/images/person/temp/{{visitor.requesterSSO}}.jpg" ng-show="visitor.showAvatarRequester" />
+                	<i class="fa fa-user"></i>
+              	</span>
+              	<h5 class="inline"><strong>{{ visitor.requesterLastName +', '+ visitor.requesterFirstName}}</strong><br /><small>{{ visitor.requesterSSO}}</small></h5>
+            </td>
+            <td>{{visitor.reason}}</td>
+            <td>
+            	<span ng-hide="visitor.forever">
+                	{{visitor.startDate | date:config.dateFormat}}
+                     - 
+                    {{visitor.endDate | date:config.dateFormat}}
+                </span>
+                <span ng-show="visitor.forever">{{translation.BANNED_VISITORS.FOREVER}}</span>
+            </td>
+            <td class="text-center">
+              <div class="btn-group tips">
+              	<a href="" ng-click="bann(visitor, $index);" uib-tooltip="{{translation.BANNED_VISITORS.EDIT_TIP}}">
+             		<i class="fa fa-pencil ring"></i>
+                </a>
+                <a href="" ng-click="removeBann(visitor, $index);" uib-tooltip="{{translation.BANNED_VISITORS.REMOVE_BAN_TIP}}">
+                	<i class="fa fa-times ring ring"></i>
+                </a>
+              </div>
+            </td>                    
+          </tr>
+          <tr ng-hide="(bannedVisitors | filter: filterVisitors).length">
+            <td colspan="5"> {{translation.DASHBOARD.NO_RECORDS}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

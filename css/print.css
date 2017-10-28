@@ -1,0 +1,120 @@
+/* Print CSS Document */
+
+.cardOuter {
+	width: 144px;
+	min-height: 252px;
+	margin: 0 auto;
+	background: #fff;
+	padding: 10px;
+	color: #231f20;
+	overflow:hidden;
+	height:300px !important;
+	left:20px;
+}
+.cardOuter h1, .cardOuter h2 {
+	font-size: 19px;
+	text-align: center;
+	margin-bottom: 5px;
+	width: 144px;
+	overflow:hidden;
+	height:20px;
+}
+.cardOuter h3 {
+	font-size: 16px;
+	font-style: italic;
+	text-align: center;
+	height:17px;
+	overflow:hidden;
+}
+.cardOuter h4 {
+	font-size: 33px;
+	text-align: center;
+	margin: 10px 0;
+	height:34px;
+	overflow:hidden;
+}
+.cardOuter p {
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 5px;
+	font-size: 12px;
+	height:12px;
+	overflow:hidden;
+}
+.cardOuter p span {
+	font-style: italic;
+	font-weight: normal
+}
+.cardOuter .leftAlighn {
+	float: left;
+	text-align: left;
+	font-size: 14px;
+	margin-top: 10px; width:60px;
+}
+.cardOuter .leftAlighn p {
+	text-align: left;
+	font-size: 14px;
+	height:28px;
+	overflow:hidden;
+}
+.rightAlign {
+	float: right;
+	font-size: 20px;
+	padding-top: 11px;
+	margin-top: 10px;
+	height:60px;
+	overflow:hidden;
+	width:60px;
+	text-align:right;
+}
+.rightAlign h5.er {
+	font-weight:bold;
+}
+
+@media screen {
+	#printSection {
+		visibility: hidden;
+		display:none;
+	}
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+	#wrapper {
+		display:none;
+		background-color:#0F0;
+	}
+	#printSection, #printSection * {
+		visibility: visible;
+	}
+	#printSection {
+		position: absolute;
+		left: 0;
+		top: 0;
+		top/*\**/: 20px;
+	}
+	@page {
+		size: auto;   /* auto is the initial value */
+		margin: 0mm;  /* this affects the margin in the printer settings */
+	}
+	html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+	}
+	body {
+		line-height: 1;
+		background: #286eb4;
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		font-weight: 300;
+	}
+	#printSection.padd {
+		padding:30px;
+	}
+}

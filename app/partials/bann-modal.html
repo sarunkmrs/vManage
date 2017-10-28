@@ -1,0 +1,141 @@
+<form name="bannForm" class="form-horizontal" novalidate autocomplete="off">
+    <div class="modal-header dialog-header-confirm">
+        <h4 class="modal-title">
+        	<i class="fa fa-check"></i> Bann
+        </h4>
+    </div>
+    <div class="modal-body">
+    	<div class="row">
+            <div class="col-sm-3">
+                <div>
+                    <span class="avatar md">
+                        <img src="http://supportcentral.gecdn.com/images/person/temp/{{item.sso}}.jpg" ng-show="showAvatar" />
+                        
+                    	<img class="profile" ng-src="{{item.datastream}}" ng-show="item.datastream" />
+                    </span>
+                </div>
+                <div class="btn-group avatar-btn-popup" role="group" uib-tooltip="{{translation.CAPTURE.CAPTURE_TOOLTIP}}">
+                	<button type="button" class="btn btn-success" ng-click="capture();" ng-disabled="!webcamSupported">
+                    	<i class="fa fa-camera"></i>
+                    </button>
+                	<button type="button" class="btn btn-success" avatar="item.datastream" avatar-attrs="{accept:'image/*'}">
+                    	<i class="fa fa-upload"></i>
+                    </button>
+                </div>
+                <div class="text-center" ng-show="onEditPage">
+                    <h4>{{ item.lastName +', '+ item.firstName}}<br /><small ng-if="item.sso.length">({{item.sso}})</small></h4>
+                </div>
+            </div>
+            <div class="col-sm-9">
+            	
+                <div class="form-group" ng-hide="onEditPage">
+                    <label for="visitorType" class="col-sm-3 control-label"> {{ translation.SCHEDULE.VISITOR_TYPE }} </label>
+                    <div class="col-sm-8 col-xs-10">
+                        
+                        <select class="form-control" id="visitorType" name="visitorType" ng-model="visitorType" ng-options="visitorType.id as visitorType.name for visitorType in visitorTypes" ng-change="switchLookup(visitorType);" ng-disabled="onEditPage"></select>
+                        
+                    </div>
+                    <div class="col-sm-1 col-xs-2">
+                        <button type="button" class="btn btn-link pull-right help" ng-click="help();">
+                            <i class="fa fa-question-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-if="visitorType=='geemployee'" ng-hide="onEditPage">
+                    <label for="geUser" class="col-sm-3 control-label"> {{ translation.SCHEDULE.SEARCH_USER }}</label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.geUser.$invalid}">
+                        <input type="text" class="form-control" id="geUser" name="geUser" ng-model="item.geUser" uib-typeahead="user.name as user.name for user in getGEUsers($viewValue)" placeholder="{{ translation.SCHEDULE.ENTER_SSO }}" typeahead-min-length="3" typeahead-loading="loadingUsers" typeahead-no-results="noResults" typeahead-editable="false" typeahead-on-select="onSelectGEUser($item, $model, $label);">
+                        <i ng-show="loadingUsers" class="fa fa-refresh"></i>
+                        <div ng-show="noResults">
+      						<i class="glyphicon glyphicon-remove"></i> {{translation.DASHBOARD.NO_RECORDS}}
+    					</div>
+                    </div>
+                </div>
+                
+                <div class="form-group" ng-if="visitorType=='pastvisitor'" ng-hide="onEditPage">
+                    <label for="pastVisitor" class="col-sm-3 control-label"> {{ translation.SCHEDULE.SEARCH_VISITOR }}</label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.ssoUser.$invalid}">
+                        <input type="text" class="form-control" id="pastVisitor" name="pastVisitor" ng-model="item.pastVisitor" uib-typeahead="user.name as user.name for user in getPastVisitors($viewValue)" placeholder="{{ translation.SCHEDULE.ENTER_SSO }}" typeahead-min-length="3" typeahead-loading="loadingUsers" typeahead-no-results="noResults" typeahead-editable="false" typeahead-on-select="onSelectPastVisitor($item, $model, $label);">
+                        <i ng-show="loadingUsers" class="fa fa-refresh"></i>
+                        <div ng-show="noResults">
+      						<i class="glyphicon glyphicon-remove"></i> {{translation.DASHBOARD.NO_RECORDS}}
+    					</div>
+                    </div>
+                </div>
+                
+                <hr ng-hide="onEditPage" />
+                
+                <div class="form-group required" ng-if="visitorType=='geemployee' || (visitorType=='pastvisitor' && item.sso != '')">
+                    <label for="sso" class="col-sm-3 control-label"> {{ translation.SCHEDULE.SSO }} </label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.sso.$invalid}">
+                        <input type="text" class="form-control" id="sso" name="sso" ng-model="item.sso" ng-maxlength="25" required ng-disabled="onEditPage || visitorType=='geemployee' || visitorType=='pastvisitor'" />
+                    </div>
+                </div>
+                
+                <div class="form-group required">
+                    <label for="firstName" class="col-sm-3 control-label"> {{ translation.SCHEDULE.FIRST_NAME }} </label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.firstName.$invalid}">
+                        <input type="text" class="form-control" id="firstName" name="firstName" ng-model="item.firstName" maxlength="25" required ng-disabled="onEditPage || visitorType=='geemployee' || visitorType=='pastvisitor'" />
+                    </div>
+                </div>
+                
+                <div class="form-group required">
+                    <label for="lastName" class="col-sm-3 control-label"> {{ translation.SCHEDULE.LAST_NAME }} </label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.lastName.$invalid}">
+                        <input type="text" class="form-control" id="lastName" name="lastName" ng-model="item.lastName" maxlength="25" required ng-disabled="onEditPage || visitorType=='geemployee' || visitorType=='pastvisitor'" />
+                    </div>
+                </div>
+                
+                <div class="form-group required">
+                    <label for="reason" class="col-sm-3 control-label"> {{ translation.BANNED_VISITORS.REASON }} </label>
+                    <div class="col-sm-9" ng-class="{'has-error': bannForm.reason.$invalid}">
+                        <textarea class="form-control" id="reason" name="reason" cols="6" rows="3" ng-model="item.reason" placeholder="{{ translation.BANNED_VISITORS.REASON }}" required maxlength="500"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="startDate" class="col-sm-3 col-xs-3 control-label" ng-bind-html="translation.VISITOR_REPORTS.START_DATE"></label>
+                    
+                    <div class="col-sm-9 col-xs-9" ng-class="{'has-error': bannForm.startDate.$invalid}">
+                        <p class="input-group">
+                          <input type="text" class="form-control" id="startDate" name="startDate" ng-model="item.startDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minDate" max-date="maxDate" show-button-bar="false" readonly ng-required="true" is-open="$parent.startOpened" ng-click="$parent.startOpened=true" ng-change="changeEndDate()" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="$parent.startOpened=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="endDate" class="col-sm-3 col-xs-3 control-label" ng-bind-html="translation.VISITOR_REPORTS.END_DATE"></label>
+                    
+                    <div class="col-sm-9 col-xs-9" ng-class="{'has-error': bannForm.endDate.$invalid}">
+                        <p class="input-group">
+                          <input type="text" class="form-control" id="endDate" name="endDate" ng-model="item.endDate" uib-datepicker-popup="{{config.dateFormat}}" show-weeks="false" min-date="minEndDate" max-date="maxEndDate" show-button-bar="false" readonly ng-required="true" is-open="$parent.endOpened" ng-click="$parent.endOpened=true" ng-disabled="item.forever" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="$parent.endOpened=true" ng-disabled="item.forever"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                	<label for="forever" class="col-sm-3 col-xs-3 control-label">{{ translation.BANNED_VISITORS.FOREVER }}</label>
+                    <div class="col-sm-9 col-xs-9" ng-class="{'has-error': bannForm.forever.$invalid}">
+                    	<div class="checkbox">
+                            <input type="checkbox" id="forever" name="forever" ng-model="item.forever" />
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning actionBtn" ng-click="cancel()"> {{translation.SCHEDULE.CANCEL}} </button>
+        <button class="btn btn-primary actionBtn" ng-click="ok()" ng-disabled="bannForm.$invalid"> 
+        	{{translation.SCHEDULE.SAVE}}
+        </button>
+    </div>
+</form>

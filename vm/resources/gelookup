@@ -1,0 +1,36 @@
+{
+  "data": [
+      {
+          "visitor": "Balaji, Nagaiahgari(502115782)",
+          "firstName": "Nagaiahgari",
+          "lastName": "Balaji",
+          "phone": "+919952907194",
+          "email": "nagaiahgari.balaji@ge.com",
+          "company": "IT Corporate Information Services",
+          "sso": "502115782"
+      },
+      {
+          "visitor": "Balaji, Pullikaran(502157822)",
+          "firstName": "Nagaiahgari",
+          "lastName": "Pullikaran",
+          "phone": "",
+          "email": "",
+          "company": "IT Corporate Information Services",
+          "sso": "502115782"
+      },
+      {
+          "visitor": "Test User(999999999)",
+          "firstName": "Test",
+          "lastName": "User",
+          "phone": "+999999999",
+          "email": "test.test@ge.com",
+          "company": "IT Corporate Information Services",
+          "sso": "999999999"
+      }
+  ],
+  "exception": {
+      "status": false,
+      "code": 0,
+      "message": ""
+  }
+} 

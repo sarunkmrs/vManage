@@ -1,0 +1,17 @@
+{
+    "data": [
+        {
+            "sso": "502136545",
+            "name": "Maheen, Shafeek (502136545)"
+        },
+        {
+        	"sso": "502266762",
+            "name": "Moorthy, Sarun (502266762)"
+        }
+    ],
+    "exception": {
+        "status": false,
+        "code": 0,
+        "message": ""
+    }
+}
